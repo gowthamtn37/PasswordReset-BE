@@ -11,7 +11,7 @@ const PORT = process.env.PORT;
 const Mongo_url = process.env.Mongo_url;
 export const Client = new MongoClient(Mongo_url);
 await Client.connect();
-console.log(`MongoDB connected :${Mongo_url}`);
+console.log(`MongoDB connected`);
 
 app.use(express.json());
 app.use(cors());

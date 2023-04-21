@@ -89,7 +89,7 @@ router.post("/forgetpassword", async (request, respond) => {
   if (!checkMail) {
     respond.status(401).send({ message: "Email-ID not exist" });
   } else {
-    // const sendMail = await sendOTP(email);
+    const sendMail = await sendOTP(email);
     //console.log(sendMail);
     let result = await Client.db("userDetails")
       .collection("user")

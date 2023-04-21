@@ -13,7 +13,6 @@ import {
   getUserEmail,
   getUserName,
   passwordReset,
-  sendOTP,
 } from "../service/users.service.js";
 
 const router = express.Router();
@@ -61,6 +60,28 @@ router.post("/signup", async (request, respond) => {
     respond.status(200).send(result);
   }
 });
+
+export async function sendOTP(email) {
+  const OTP = Math.floor(Math.random() * 1000000 + 1);
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.user,
+      pass: process.env.pass,
+    },
+  });
+
+  // send mail with defined transport object
+  let info = await transporter.sendMail({
+    from: '"Gowtham TN37 ❤️‍🔥" <gowthamtn37@gmail.com>', // sender address
+
+    to: email, // list of receivers
+    subject: "Hello ✔", // Subject line
+    text: `${OTP}`, // plain text body
+  });
+  return OTP;
+}
 
 router.post("/forgetpassword", async (request, respond) => {
   const { email } = request.body;

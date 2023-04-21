@@ -25,28 +25,6 @@ export async function generatehashpassword(password) {
   return hashpassword;
 }
 
-export async function sendOTP(email) {
-  const OTP = Math.floor(Math.random() * 1000000 + 1);
-  // create reusable transporter object using the default SMTP transport
-  let transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.user,
-      pass: process.env.pass,
-    },
-  });
-
-  // send mail with defined transport object
-  let info = await transporter.sendMail({
-    from: '"Gowtham TN37 ❤️‍🔥" <gowthamtn37@gmail.com>', // sender address
-
-    to: email, // list of receivers
-    subject: "Hello ✔", // Subject line
-    text: `${OTP}`, // plain text body
-  });
-  return OTP;
-}
-
 export async function getOTP(OTP) {
   let result = await Client.db("userDetails")
     .collection("user")

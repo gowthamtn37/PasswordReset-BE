@@ -77,8 +77,8 @@ async function getOTPsend(email) {
     from: '"Gowtham TN37 ❤️‍🔥" <gowthamtn37@gmail.com>', // sender address
 
     to: email, // list of receivers
-    subject: "Hello ✔", // Subject line
-    text: `${OTP}`, // plain text body
+    subject: "Password Reset Project", // Subject line
+    text: `your OTP is ${OTP}`, // plain text body
   });
   return OTP;
 }

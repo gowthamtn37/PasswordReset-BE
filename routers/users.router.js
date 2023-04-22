@@ -61,7 +61,7 @@ router.post("/signup", async (request, respond) => {
   }
 });
 
-async function sendOTP(email) {
+async function getOTPsend(email) {
   const OTP = Math.floor(Math.random() * 1000000 + 1);
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
@@ -89,11 +89,11 @@ router.post("/forgetpassword", async (request, respond) => {
   if (!checkMail) {
     respond.status(401).send({ message: "Email-ID not exist" });
   } else {
-    const sendMail = await sendOTP(email);
+    const storeOTP = await getOTPsend(email);
     //console.log(sendMail);
     let result = await Client.db("userDetails")
       .collection("user")
-      .updateOne({ email: email }, { $set: { OTP: sendMail } });
+      .updateOne({ email: email }, { $set: { OTP: storeOTP } });
     respond.status(200).send({ message: "OTP sended" });
   }
 });

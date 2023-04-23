@@ -1,10 +1,11 @@
 import Jwt from "jsonwebtoken";
 
-export const auth = (request, respond, next) => {
+export const auth = (request, response, next) => {
   try {
     const token = request.header("x-auth-token");
     Jwt.verify(token, process.env.secret_key);
+    next();
   } catch (err) {
-    respond.status(401).send({ message: err.message });
+    response.status(401).send({ message: err.message });
   }
 };

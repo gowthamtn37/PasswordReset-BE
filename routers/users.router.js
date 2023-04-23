@@ -14,6 +14,7 @@ import {
   getUserName,
   passwordReset,
 } from "../service/users.service.js";
+import { auth } from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -128,6 +129,14 @@ router.post("/reset", async (request, respond) => {
   } else {
     respond.status(401).send({ message: "OTP INVALID" });
   }
+});
+
+router.get("/dashboard", auth, async (request, respond) => {
+  let result = await Client.db("B42WD2")
+    .collection("mobiles")
+    .find({})
+    .toArray();
+  respond.status(200).send(result);
 });
 
 export default router;
